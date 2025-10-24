@@ -25,26 +25,27 @@ graph = {
 }
 
 
-def dijkstra(graph, source):
-    dist = {v: float('inf') for v in graph}
-    dist[source] = 0
-    Q = [(0, source)]
+def dijkstra(graph, src):
+    dist = {v: float('inf') for v in graph}  # Initialize distances to infinity
+    dist[src] = 0  # Distance to source is 0
+    Q = [(0, src)]  # Priority queue of (distance, vertex)
 
     while Q:
         d, u = heapq.heappop(Q)
-        if d > dist[u]:
+        if d > dist[u]:  # A shorter path to u has already been found
             continue
         for v, w in graph[u]:
-            if dist[u] + w < dist[v]:
+            if dist[u] + w < dist[v]:  # Relaxation step
                 dist[v] = dist[u] + w
+                # Push updated distance to priority queue
                 heapq.heappush(Q, (dist[v], v))
     return dist
 
 
 if __name__ == "__main__":
     destinations = [6, 8, 9, 15, 16, 22]
-    source_node = 1
-    distances = dijkstra(graph, source_node)
+    src_node = 1
+    distances = dijkstra(graph, src_node)
     for node in sorted(destinations):
         print(
-            f"Distance from node {source_node} to node {node} is {distances[node]}")
+            f"Distance from node {src_node} to node {node} is {distances[node]}")
