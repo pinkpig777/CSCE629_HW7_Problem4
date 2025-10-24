@@ -28,22 +28,23 @@ graph = {
 def dijkstra(graph, source):
     dist = {v: float('inf') for v in graph}
     dist[source] = 0
-    pq = [(0, source)]
+    Q = [(0, source)]
 
-    while pq:
-        d, u = heapq.heappop(pq)
+    while Q:
+        d, u = heapq.heappop(Q)
         if d > dist[u]:
             continue
         for v, w in graph[u]:
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
-                heapq.heappush(pq, (dist[v], v))
+                heapq.heappush(Q, (dist[v], v))
     return dist
 
 
 if __name__ == "__main__":
+    destinations = [6, 8, 9, 15, 16, 22]
     source_node = 1
     distances = dijkstra(graph, source_node)
-    for node in sorted(distances):
+    for node in sorted(destinations):
         print(
             f"Distance from node {source_node} to node {node} is {distances[node]}")
