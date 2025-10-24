@@ -1,3 +1,4 @@
+import heapq
 graph = {
     1: [(2, 1), (11, 1), (10, 2)],
     2: [(1, 1), (3, 1), (21, 1)],
@@ -22,3 +23,19 @@ graph = {
     21: [(13, 1), (20, 2), (22, 2)],
     22: [(20, 1), (21, 2)]
 }
+
+
+def dijkstra(graph, source):
+    dist = {v: float('inf') for v in graph}
+    dist[source] = 0
+    pq = [(0, source)]
+
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d > dist[u]:
+            continue
+        for v, w in graph[u]:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(pq, (dist[v], v))
+    return dist
