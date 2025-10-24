@@ -26,16 +26,21 @@ graph = {
 
 
 def dijkstra(graph, src):
-    dist = {v: float('inf') for v in graph}  # Initialize distances to infinity
-    dist[src] = 0  # Distance to source is 0
-    Q = [(0, src)]  # Priority queue of (distance, vertex)
+    # Initialize distances to infinity
+    dist = {v: float('inf') for v in graph}
+    # Distance to source is 0
+    dist[src] = 0
+    # Priority queue of (distance, vertex)
+    Q = [(0, src)]
 
     while Q:
         d, u = heapq.heappop(Q)
-        if d > dist[u]:  # A shorter path to u has already been found
+        # A shorter path to u has already been found
+        if d > dist[u]:
             continue
         for v, w in graph[u]:
-            if dist[u] + w < dist[v]:  # Relaxation step
+            # Relaxation step
+            if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 # Push updated distance to priority queue
                 heapq.heappush(Q, (dist[v], v))
