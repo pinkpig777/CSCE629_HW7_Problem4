@@ -39,3 +39,11 @@ def dijkstra(graph, source):
                 dist[v] = dist[u] + w
                 heapq.heappush(pq, (dist[v], v))
     return dist
+
+
+if __name__ == "__main__":
+    source_node = 1
+    distances = dijkstra(graph, source_node)
+    for node in sorted(distances):
+        print(
+            f"Distance from node {source_node} to node {node} is {distances[node]}")
